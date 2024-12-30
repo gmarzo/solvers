@@ -3,7 +3,7 @@ class Domino:
   Represents a singular domino, which has a set of pips on each side.
   Each side can be anywhere from 0-12 pips.
   """
-  def __init__(self, side1: int=-1, side2: int=-1) -> None:
+  def __init__(self, side1: int, side2: int) -> None:
     """
     Creates a domino object
     """
@@ -19,7 +19,7 @@ class Domino:
   def is_double(self) -> bool:
     return self.side1 == self.side2
   
-  def get_total(self) -> int:
+  def get_score(self) -> int:
     return self.side1 + self.side2
   
   def _flip(self) -> None:
@@ -33,7 +33,7 @@ class Domino:
     return f"[{self.side1}, {self.side2}]"
 
   def __eq__(self, other: "Domino") -> bool:
-    return self.side1 == other.side1 and self.side2 == other.side2
+    return self.side1 == other.side1 and self.side2 == other.side2 or self.side1 == other.side2 and self.side2 == other.side1
   
   def __hash__(self):
     return hash(self.side1, self.side2)
