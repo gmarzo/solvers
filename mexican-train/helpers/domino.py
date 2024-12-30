@@ -8,9 +8,9 @@ class Domino:
     Creates a domino object
     """
 
-    if not 0 <= self.side1 <= 12:
+    if not 0 <= side1 <= 12:
       raise ValueError
-    if not 0 <= self.side2 <= 12:
+    if not 0 <= side2 <= 12:
       raise ValueError
 
     self.side1 = side1

@@ -1,4 +1,4 @@
-from helpers.domino import *
+from domino import *
 import unittest
 
 class DominoTest(unittest.TestCase):
