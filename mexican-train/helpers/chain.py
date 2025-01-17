@@ -15,6 +15,17 @@ class Chain:
     self.__head: Optional[_Node] = None
     self.__tail: Optional[_Node] = None
   
+  def __str__(self) -> str:
+
+    ret_str: str = ""
+    current: _Node = self.__head
+
+    while current != None:
+      ret_str += str(current.data)
+      current = current.next
+    
+    return ret_str
+
   def append(self, dom: "Domino") -> bool:
     """
     Appends a domino to the end of the chain. The chain can only successfully be added to if
@@ -34,7 +45,7 @@ class Chain:
         self.__size += 1
         return True
       elif to_append.data.side2 == self.spinner:
-        to_append.data._flip()
+        to_append.data = to_append.data._flip()
         self.__head = to_append
         self.__tail = to_append
         self.__size += 1
@@ -45,16 +56,24 @@ class Chain:
     if to_append.data.side1 == self.__tail.data.side2:
       self.__tail.next = to_append
       self.__tail = to_append
+      to_append.prev = self.__tail
       self.__size += 1
       return True
     elif to_append.data.side2 == self.__tail.data.side2:
-      to_append.data._flip()
+      to_append.data = to_append.data._flip()
       self.__tail.next = to_append
       self.__tail = to_append
+      to_append.prev = self.__tail
       self.__size += 1
       return True
     else:
       return False
+    
+  def remove(self, index: int) -> bool:
+    """
+    Removes the domino at the requested int, and also any dominoes afterwards
+    """
+    raise NotImplementedError
 
   def get_total(self) -> int:
     """
@@ -69,6 +88,21 @@ class Chain:
       current = current.next
     
     return total
+  
+  def flip(self) -> None:
+    """
+    Inverts the order and orientation of dominoes in the chain
+    """
+    current: _Node = self.__head
+    next_node: _Node = None
+
+    while current != None:
+      next_node = current.prev
+      current.next, current.prev = current.prev, current.next
+      current.data = current.data._flip()
+      current = next_node
+
+    self.__head, self.__tail = self.__tail, self.__head
 
 class _Node:
   """
@@ -77,4 +111,5 @@ class _Node:
 
   def __init__(self, domino: "Domino"):
     self.data: Domino = domino
+    self.prev: Optional[_Node] = None
     self.next: Optional[_Node] = None

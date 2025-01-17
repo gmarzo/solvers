@@ -7,7 +7,7 @@ class DominoTest(unittest.TestCase):
     self.dom = Domino(1, 12)
   
   def test_flip0(self) -> None:
-    self.dom._flip()
+    self.dom = self.dom._flip()
 
     self.assertEqual(self.dom.side1, 12)
     self.assertEqual(self.dom.side2, 1)

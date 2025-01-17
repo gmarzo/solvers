@@ -22,12 +22,15 @@ class Domino:
   def get_score(self) -> int:
     return self.side1 + self.side2
   
-  def _flip(self) -> None:
+  def _flip(self) -> "Domino":
     """
-    Turns the domino around for the sake of the chain
-    using side2 -> side1 connections.
+    Returns a new domino that is the original
+    domino with sides 1 and 2 switched.
     """
-    self.side1, self.side2 = self.side2, self.side1
+    return Domino(self.side2, self.side1)
+  
+  def can_connect(self, other: "Domino") -> bool:
+    return self.side2 == other.side1
   
   def __str__(self) -> str:
     return f"[{self.side1}, {self.side2}]"
